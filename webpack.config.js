@@ -19,7 +19,8 @@ module.exports = {
   plugins: [
     new webpack.ContextReplacementPlugin(/./, function(context){
       if (context.resource === path.resolve('./app/views')) {
-        context.regExp = /home/i
+        console.log(context.regExp);
+        context.regExp = /^.*Home.*$/i;
       }
       console.log(arguments);
     }),

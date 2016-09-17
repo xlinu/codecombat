@@ -17,6 +17,9 @@ window.TreemaUtils = require('../bower_components/treema/treema-utils.js');
 window.moment = require('moment');
 window.$.i18n = require('../bower_components/i18next/i18next.js');
 require('../vendor/scripts/idle.js').createjs;
+window.key = require('../vendor/scripts/keymaster.js');
+require('../vendor/scripts/jquery.noty.packaged.min.js');
+require('bootstrap/dist/js/bootstrap');
 
 
 require('./core/Router.coffee');
