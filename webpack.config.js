@@ -16,10 +16,10 @@ module.exports = {
     root: [path.resolve('./app'), path.resolve('./app/templates')],
     extensions: ['', '.web.coffee', '.web.js', '.coffee', '.js', '.jade']
   },
+  devtool: 'inline-source-map',
   plugins: [
     new webpack.ContextReplacementPlugin(/./, function(context){
       if (context.resource === path.resolve('./app/views')) {
-        console.log(context.regExp);
         context.regExp = /^.*Home.*$/i;
       }
       console.log(arguments);
