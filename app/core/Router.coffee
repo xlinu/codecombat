@@ -217,7 +217,7 @@ module.exports = class CocoRouter extends Backbone.Router
 
   tryToLoadModule: (path) ->
     try
-      return require(path)
+      return require('../views/' + path + '.coffee')
     catch error
       if error.toString().search('Cannot find module "' + path + '" from') is -1
         throw error
@@ -248,7 +248,7 @@ module.exports = class CocoRouter extends Backbone.Router
     return if application.testing or application.demoing
     application.facebookHandler.loadAPI()
     application.gplusHandler.loadAPI()
-    require('core/services/twitter')()
+    require('./services/twitter')()
 
   renderSocialButtons: =>
     # TODO: Refactor remaining services to Handlers, use loadAPI success callback
