@@ -3,7 +3,7 @@ template = require 'templates/test-view'
 requireUtils = require 'lib/requireUtils'
 storage = require 'core/storage'
 
-require 'vendor/jasmine-bundle'
+require 'vendor/scripts/jasmine-bundle'
 require 'tests'
 
 TEST_REQUIRE_PREFIX = 'test/app/'

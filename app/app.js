@@ -20,6 +20,7 @@ require('../vendor/scripts/idle.js').createjs;
 window.key = require('../vendor/scripts/keymaster.js');
 require('../vendor/scripts/jquery.noty.packaged.min.js');
 require('bootstrap/dist/js/bootstrap');
+require('nanoscroller');
 
 
 require('./core/Router.coffee');

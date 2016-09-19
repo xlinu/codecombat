@@ -6,7 +6,7 @@ requireUtils = require 'lib/requireUtils'
 DEMO_REQUIRE_PREFIX = 'test/demo/'
 DEMO_URL_PREFIX = '/demo/'
 
-require 'vendor/jasmine-bundle'
+require 'vendor/scripts/jasmine-bundle'
 require 'demo-app'
 
 ###
