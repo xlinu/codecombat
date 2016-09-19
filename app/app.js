@@ -1,4 +1,6 @@
 // require.context('./core', true, /^.*$/)
+// require('css!sass!./styles/' + expr + '.sass');
+require('styles/about.sass')
 
 
 global.$ = window.$ = window.jQuery = require('jquery');

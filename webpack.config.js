@@ -17,8 +17,8 @@ module.exports = {
     loaders: [
       { test: /\.coffee$/, loader: 'coffee-loader' },
       { test: /\.jade$/, loader: 'jade-loader', query: { root: path.resolve('./app') } },
-      // { test: /\.sass$/, loaders: ['style', 'css?sourceMap', 'sass?sourceMap'] },
-      { test: /\.sass$/, loader: ExtractTextPlugin.extract('style-loader', 'style!css!sass')},
+      { test: /\.sass$/, loader: ExtractTextPlugin.extract(['css-loader', 'sass-loader?indentedSyntax'])},
+      // { test: /\.css$/, loaders: ExtractTextPlugin.extract('css')},
     ],
   },
   resolve: {
@@ -28,6 +28,7 @@ module.exports = {
       path.resolve('./node_modules'),
       path.resolve('./bower_components'),
       path.resolve('./vendor/scripts'),
+      path.resolve('./'),
     ],
     extensions: ['', '.web.coffee', '.web.js', '.coffee', '.js', '.jade', '.sass'],
   },
@@ -37,7 +38,7 @@ module.exports = {
       if (context.resource === path.resolve('./app/views')) {
         context.regExp = /^.*(Home|Play|Campaign).*$/i;
       }
-      console.log(arguments);
+      // console.log(arguments);
     }),
     new webpack.NormalModuleReplacementPlugin(/.*templates.*/, function(context){
       if(context.request.indexOf('.jade') < 0){
@@ -50,6 +51,6 @@ module.exports = {
       to: 'public',
       ignore: '*bower.json',
     }]),
-    new ExtractTextPlugin('stylesheets/app.css'),
+    new ExtractTextPlugin('./stylesheets/app.css'),
   ]
 }

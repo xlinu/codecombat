@@ -1,0 +1,307 @@
+#about-view {
+  overflow: hidden; }
+  #about-view #nav-container {
+    min-height: 55px; }
+    #about-view #nav-container nav {
+      background: #F2BE19; }
+      #about-view #nav-container nav.affix {
+        z-index: 1;
+        position: fixed;
+        top: 0;
+        width: 100%; }
+      #about-view #nav-container nav ul {
+        margin-top: 5px;
+        padding-left: 0;
+        list-style: none; }
+        #about-view #nav-container nav ul li {
+          height: 22pt;
+          display: inline-block;
+          margin: 10px 0 0; }
+          @media (min-width: 480px) {
+            #about-view #nav-container nav ul li {
+              margin: 10px 5px 0; } }
+          @media (min-width: 768px) {
+            #about-view #nav-container nav ul li {
+              margin: 10px 18px 0; } }
+          #about-view #nav-container nav ul li a {
+            color: white;
+            text-transform: uppercase;
+            text-decoration: none; }
+        #about-view #nav-container nav ul li.active .label {
+          padding-left: 0;
+          padding-right: 0;
+          padding-bottom: 0;
+          margin-left: 0.6em;
+          margin-right: 0.6em;
+          border-bottom: 4px solid white;
+          border-radius: 0; }
+  #about-view #jumbotron {
+    background-color: #0E4C60;
+    background-image: url("/images/pages/about/codebackground_zoom_compressed.png");
+    background-size: cover;
+    background-repeat: no-repeat; }
+    #about-view #jumbotron h1 {
+      color: white;
+      margin-top: 100px; }
+    #about-view #jumbotron h2 {
+      color: white;
+      margin-bottom: 100px; }
+  #about-view .responsive-side-margins, #about-view h3, #about-view h4, #about-view p {
+    max-width: 460px;
+    margin-left: auto;
+    margin-right: auto; }
+    @media (min-width: 768px) {
+      #about-view .responsive-side-margins, #about-view h3, #about-view h4, #about-view p {
+        max-width: inherit; } }
+  #about-view h3 {
+    margin-top: 60px; }
+    @media (min-width: 768px) {
+      #about-view h3 {
+        margin-top: 150px; } }
+  #about-view #about-container {
+    background-color: white; }
+    @media (min-width: 768px) {
+      #about-view #about-container {
+        margin-top: 85px; } }
+  #about-view #mission-text {
+    margin-top: 30px; }
+    @media (min-width: 768px) {
+      #about-view #mission-text {
+        margin-top: 45px; } }
+  #about-view #mission-graphic, #about-view #community-graphic {
+    padding: 30px 40px;
+    position: relative;
+    min-height: 320px; }
+    @media (min-width: 768px) {
+      #about-view #mission-graphic, #about-view #community-graphic {
+        min-height: 250px; } }
+    #about-view #mission-graphic h2, #about-view #community-graphic h2 {
+      color: white;
+      width: 50%; }
+  #about-view #mission-graphic {
+    margin-top: 30px;
+    background: #0E4C60; }
+    @media (min-width: 768px) {
+      #about-view #mission-graphic {
+        margin-top: 45px; } }
+    #about-view #mission-graphic h2 {
+      float: right; }
+    #about-view #mission-graphic img {
+      position: absolute;
+      bottom: 0;
+      left: 0; }
+    #about-view #mission-graphic #mission-graphic-filler {
+      background: #0E4C60;
+      height: 100%;
+      width: 2000px;
+      position: absolute;
+      right: 100%;
+      top: 0; }
+  #about-view #team ul {
+    text-align: center;
+    margin-top: 40px;
+    padding: 0; }
+    #about-view #team ul li {
+      width: 200px;
+      height: 230px;
+      list-style: none;
+      display: inline-block;
+      text-align: center;
+      color: black; }
+      #about-view #team ul li small {
+        display: block;
+        white-space: nowrap; }
+      #about-view #team ul li .img-thumbnail {
+        border-radius: 50%;
+        padding: 0;
+        background-color: #7D0101; }
+      #about-view #team ul li .avatar {
+        display: none; }
+      #about-view #team ul li .headshot {
+        border: 5px solid #fff; }
+    #about-view #team ul .profile-pic:hover .headshot {
+      display: none; }
+    #about-view #team ul .profile-pic:hover .avatar {
+      display: inline;
+      border: 5px solid #F2BE19; }
+  #about-view #community-row-1 #community-avatars {
+    width: 90%;
+    margin: 20px 5%; }
+  #about-view #community-row-2 {
+    margin-top: 35px; }
+    @media (min-width: 768px) {
+      #about-view #community-row-2 {
+        margin-top: 70px; } }
+    #about-view #community-row-2 #community-graphic {
+      background: #7D0101; }
+      #about-view #community-row-2 #community-graphic img {
+        position: absolute;
+        right: 0;
+        bottom: 0; }
+      #about-view #community-row-2 #community-graphic #community-graphic-filler {
+        background: #7D0101;
+        height: 100%;
+        width: 2000px;
+        position: absolute;
+        left: 100%;
+        top: 0; }
+  #about-view #story {
+    font-family: "Arvo", serif;
+    font-variant: normal; }
+    #about-view #story #story-graphic-1 {
+      max-width: 580px;
+      margin-top: 50px;
+      margin-left: auto;
+      margin-right: auto; }
+      @media (min-width: 768px) {
+        #about-view #story #story-graphic-1 {
+          margin-top: 80px; } }
+      #about-view #story #story-graphic-1 .media-heading {
+        color: #7D0101; }
+    #about-view #story #story-graphic-2 {
+      margin-top: 50px;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 390px; }
+      @media (min-width: 768px) {
+        #about-view #story #story-graphic-2 {
+          margin-top: 80px; } }
+      #about-view #story #story-graphic-2 .media-heading {
+        color: #20572B; }
+    #about-view #story #story-graphic-3 {
+      margin-top: 50px; }
+      @media (min-width: 768px) {
+        #about-view #story #story-graphic-3 {
+          margin-top: 80px; } }
+      #about-view #story #story-graphic-3 p {
+        margin-top: 30px; }
+      #about-view #story #story-graphic-3 img {
+        margin-top: 20px; }
+      #about-view #story #story-graphic-3 #story-bracketed-text {
+        width: 100%;
+        max-width: 640px;
+        margin: 0 auto; }
+        #about-view #story #story-graphic-3 #story-bracketed-text .text-h1 {
+          display: inline-block;
+          margin: auto 0;
+          color: #0E4C60;
+          width: 80%;
+          vertical-align: bottom; }
+        #about-view #story #story-graphic-3 #story-bracketed-text img {
+          margin: auto 0; }
+        #about-view #story #story-graphic-3 #story-bracketed-text #left-bracket {
+          width: 10%;
+          display: inline-block; }
+        #about-view #story #story-graphic-3 #story-bracketed-text #right-bracket {
+          width: 10%;
+          display: inline-block; }
+      #about-view #story #story-graphic-3 #story-languages {
+        margin-top: 50px; }
+        #about-view #story #story-graphic-3 #story-languages #language-icons {
+          display: inline-block;
+          padding-left: auto;
+          padding-right: auto; }
+    #about-view #story #story-graphic-4 {
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 50px; }
+      @media (min-width: 768px) {
+        #about-view #story #story-graphic-4 {
+          margin-top: 150px; } }
+      #about-view #story #story-graphic-4 p {
+        margin-top: 20px; }
+      #about-view #story #story-graphic-4 figure img {
+        display: block;
+        margin: 0 auto; }
+  #about-view #jobs #jobs-row #benefits, #about-view #jobs #jobs-row .job-listing {
+    margin-top: 65px;
+    border: thin solid #0E4C60;
+    border-radius: 8px;
+    padding: 40px;
+    width: 370px;
+    height: 420px;
+    margin-left: auto;
+    margin-right: auto; }
+    #about-view #jobs #jobs-row #benefits h5, #about-view #jobs #jobs-row .job-listing h5 {
+      text-align: center;
+      color: inherit; }
+    #about-view #jobs #jobs-row #benefits li, #about-view #jobs #jobs-row .job-listing li {
+      padding-bottom: 7px; }
+  #about-view #jobs #jobs-row #benefits {
+    color: white;
+    background: #0E4C60; }
+    #about-view #jobs #jobs-row #benefits ul {
+      margin-top: 20px; }
+  #about-view #jobs #jobs-row a.benefits-link {
+    color: white;
+    text-decoration: underline; }
+  #about-view #jobs #jobs-row .job-listing {
+    color: #0E4C60;
+    background: white;
+    position: relative; }
+    #about-view #jobs #jobs-row .job-listing .label {
+      text-transform: uppercase;
+      color: grey; }
+    #about-view #jobs #jobs-row .job-listing a.job-link {
+      width: 170px;
+      bottom: 45px;
+      position: absolute;
+      left: 50%;
+      margin-left: -85px; }
+    #about-view #jobs #jobs-row .job-listing p {
+      margin-top: 15px; }
+  #about-view #files {
+    padding: 30px 0;
+    margin-top: 50px;
+    border: thin solid gray;
+    border-radius: 8px; }
+    #about-view #files .label {
+      color: black;
+      display: block; }
+    #about-view #files #screenshots {
+      text-align: center; }
+      #about-view #files #screenshots #screenshot-grid img {
+        display: inline-block;
+        margin: 6.5px; }
+    #about-view #files #downloads-container {
+      position: relative;
+      height: 250px; }
+      #about-view #files #downloads-container #downloads {
+        margin: 20px auto 0;
+        width: 260px; }
+        #about-view #files #downloads-container #downloads ul {
+          width: 260px;
+          margin-top: 10px;
+          margin-bottom: 20px;
+          margin-left: -25px; }
+        #about-view #files #downloads-container #downloads a {
+          color: black; }
+        #about-view #files #downloads-container #downloads #download-button {
+          margin: 0 auto;
+          color: #0E4C60; }
+          #about-view #files #downloads-container #downloads #download-button .glyphicon-download-alt {
+            margin-right: 15px;
+            vertical-align: middle;
+            font-size: 1.5em; }
+  #about-view #screenshot-lightbox .modal-dialog {
+    width: auto;
+    max-width: 1024px; }
+  #about-view #location {
+    margin-top: 75px;
+    margin-bottom: 100px;
+    text-align: center; }
+    #about-view #location p b {
+      margin-top: 40px; }
+    #about-view #location a {
+      color: inherit;
+      text-decoration: underline; }
+    #about-view #location iframe {
+      border: 2px solid lightgray; }
+
+.anchor::before {
+  content: "";
+  display: block;
+  height: 55px;
+  margin: -55px 0 0 0; }
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiIuL3N0eWxlc2hlZXRzL2FwcC5jc3MiLCJzb3VyY2VSb290IjoiIn0=*/
