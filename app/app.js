@@ -1,6 +1,6 @@
-// require.context('./core', true, /^.*$/)
-// require('css!sass!./styles/' + expr + '.sass');
-require('styles/about.sass')
+require.context('./styles/', true, /^.*\.sass$/);
+// require.context('./styles/', true, /^.*\.scss$/);
+require('./styles/bootstrap/bootstrap.scss');
 
 
 global.$ = window.$ = window.jQuery = require('jquery');
@@ -24,6 +24,8 @@ require('../vendor/scripts/jquery.noty.packaged.min.js');
 require('bootstrap/dist/js/bootstrap');
 require('nanoscroller');
 
+require('locale/locale');
+require('locale/en');
 
 require('./core/Router.coffee');
 

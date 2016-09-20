@@ -6,8 +6,8 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
   entry: {
     'app': './app/app.js',
-    'app/locale/en': './app/locale/en.coffee',
-    'app/locale/en-US': './app/locale/en-US.coffee',
+    // 'app/locale/en': './app/locale/en.coffee',
+    // 'app/locale/en-US': './app/locale/en-US.coffee',
     'esper': './bower_components/esper.js/esper.js', // TODO: Do this the right way
   },
   output: {
@@ -17,6 +17,7 @@ module.exports = {
     loaders: [
       { test: /\.coffee$/, loader: 'coffee-loader' },
       { test: /\.jade$/, loader: 'jade-loader', query: { root: path.resolve('./app') } },
+      { test: /\.scss$/, loader: ExtractTextPlugin.extract(['css-loader', 'sass-loader'])},
       { test: /\.sass$/, loader: ExtractTextPlugin.extract(['css-loader', 'sass-loader?indentedSyntax'])},
       // { test: /\.css$/, loaders: ExtractTextPlugin.extract('css')},
     ],
@@ -51,6 +52,6 @@ module.exports = {
       to: 'public',
       ignore: '*bower.json',
     }]),
-    new ExtractTextPlugin('./stylesheets/app.css'),
+    new ExtractTextPlugin('./public/stylesheets/app.css'),
   ]
 }
