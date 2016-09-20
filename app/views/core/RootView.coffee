@@ -149,7 +149,9 @@ module.exports = class RootView extends CocoView
     $.i18n.setLng(newLang, {})
     @saveLanguage(newLang)
 
-    loading = application.moduleLoader.loadLanguage(me.get('preferredLanguage', true))
+    # loading = application.moduleLoader.loadLanguage(me.get('preferredLanguage', true))
+    require.context('locale', true, /.*/)
+    loading = false
     if loading
       @listenToOnce application.moduleLoader, 'load-complete', @onLanguageLoaded
     else

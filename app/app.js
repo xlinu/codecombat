@@ -24,8 +24,8 @@ require('../vendor/scripts/jquery.noty.packaged.min.js');
 require('bootstrap/dist/js/bootstrap');
 require('nanoscroller');
 
-require('locale/locale');
-require('locale/en');
+require('./locale/locale.coffee');
+require('./locale/en.coffee');
 
 require('./core/Router.coffee');
 
