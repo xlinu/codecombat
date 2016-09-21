@@ -216,11 +216,12 @@ module.exports = class CocoRouter extends Backbone.Router
     @openView(view)
 
   tryToLoadModule: (path) ->
-    try
-      return require('../views/' + path + '.coffee')
-    catch error
-      if error.toString().search('Cannot find module "' + path + '" from') is -1
-        throw error
+    # TODO: Put this back? Commented for easier Webpack debugging, not sure what it's for.
+    # try
+    return require('../views/' + path + '.coffee')
+    # catch error
+      # if error.toString().search('Cannot find module "' + path + '" from') is -1
+        # throw error
 
   openView: (view) ->
     @closeCurrentView()

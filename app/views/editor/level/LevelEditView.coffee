@@ -33,16 +33,16 @@ SystemsDocumentationView = require 'views/editor/docs/SystemsDocumentationView'
 LevelFeedbackView = require 'views/editor/level/LevelFeedbackView'
 storage = require 'core/storage'
 
-require 'vendor/scripts/coffeescript' # this is tenuous, since the LevelSession and LevelComponent models are what compile the code
-require '../bower_components/treema/treema.js'
+require 'coffeescript' # this is tenuous, since the LevelSession and LevelComponent models are what compile the code
+require 'treema/treema.js'
 
 # Make sure that all of our Aethers are loaded, so that if we try to preview the level, it will work.
-require 'vendor/scripts/aether-javascript'
-require 'vendor/scripts/aether-python'
-require 'vendor/scripts/aether-coffeescript'
-require 'vendor/scripts/aether-lua'
-require 'vendor/scripts/aether-java'
-require 'vendor/scripts/aether-html'
+require 'aether/lib/languages/javascript'
+require 'aether/lib/languages/python'
+# require 'aether/lib/languages/coffeescript'
+require 'aether/lib/languages/lua'
+require 'aether/lib/languages/java'
+require 'aether/lib/languages/html'
 
 module.exports = class LevelEditView extends RootView
   id: 'editor-level-view'

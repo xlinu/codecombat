@@ -1,4 +1,4 @@
-etorage = require 'core/storage'
+storage = require 'core/storage'
 deltasLib = require 'core/deltas'
 locale = require 'locale/locale'
 

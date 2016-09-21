@@ -3,6 +3,7 @@ var webpack = require('webpack');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+console.log("Starting Webpack...");
 module.exports = {
   entry: {
     'app': './app/app.js',
@@ -19,7 +20,9 @@ module.exports = {
       { test: /\.jade$/, loader: 'jade-loader', query: { root: path.resolve('./app') } },
       { test: /\.scss$/, loader: ExtractTextPlugin.extract(['css-loader', 'sass-loader'])},
       { test: /\.sass$/, loader: ExtractTextPlugin.extract(['css-loader', 'sass-loader?indentedSyntax'])},
-      // { test: /\.css$/, loaders: ExtractTextPlugin.extract('css')},
+      { test: /\.css$/, loader: ExtractTextPlugin.extract(['css-loader'])},
+      { test: /\.json$/, loader: 'json-loader' },
+      { test: /npm-modernizr/, loader: 'imports?this=>window!exports?window.Modernizr'}, // TODO: Decide if this goes here or in app.js
     ],
   },
   resolve: {
@@ -29,7 +32,7 @@ module.exports = {
       path.resolve('./node_modules'),
       path.resolve('./bower_components'),
       path.resolve('./vendor/scripts'),
-      path.resolve('./'),
+      // path.resolve('./'),
     ],
     extensions: ['', '.web.coffee', '.web.js', '.coffee', '.js', '.jade', '.sass'],
   },
@@ -37,9 +40,9 @@ module.exports = {
   plugins: [
     new webpack.ContextReplacementPlugin(/./, function(context){
       if (context.resource === path.resolve('./app/views')) {
-        context.regExp = /^.*(Home|Play|Campaign).*$/i;
+        context.regExp = /^.*$/i;
       }
-      // console.log(arguments);
+      console.log(arguments);
     }),
     new webpack.NormalModuleReplacementPlugin(/.*templates.*/, function(context){
       if(context.request.indexOf('.jade') < 0){
@@ -47,11 +50,16 @@ module.exports = {
       }
     }),
     new webpack.IgnorePlugin(/^memwatch$/),
+    new webpack.IgnorePlugin(/.*images.*/, /.*vendor.*/),
     new CopyWebpackPlugin([{
       from: 'app/assets',
       to: 'public',
       ignore: '*bower.json',
     }]),
     new ExtractTextPlugin('./public/stylesheets/app.css'),
-  ]
+  ],
+  node: {
+    fs: 'empty',
+    child_process: 'empty',
+  }
 }

@@ -113,7 +113,7 @@ module.exports = class RootView extends CocoView
     $('body').removeClass('is-playing')
 
     if title = @getTitle() then title += ' | CodeCombat'
-    else title = 'CodeCombat - Learn how to code by playing a game' 
+    else title = 'CodeCombat - Learn how to code by playing a game'
 
     $('title').text(title)
 

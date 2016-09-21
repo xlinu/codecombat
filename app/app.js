@@ -1,13 +1,22 @@
-require.context('./styles/', true, /^.*\.sass$/);
 // require.context('./styles/', true, /^.*\.scss$/);
-require('./styles/bootstrap/bootstrap.scss');
+require('./styles/bootstrap/bootstrap.scss'); // Don't require its _ files, let them be required by bootstrap.scss
+require('nanoscroller/bin/css/nanoscroller.css'); // TODO: Is this the right way to do it? Do I need to do this for other packages too?
+
+require.context('./styles/', true, /^.*\.(sass|scss|css|less)$/);
+
 
 
 global.$ = window.$ = window.jQuery = require('jquery');
 window._ = require('lodash');
 window.Backbone = require('backbone');
 window.Backbone.$ = window.jQuery; //wat
-window.createjs = require('../vendor/scripts/createjs.combined.js').createjs;
+window.createjs = require('createjs.combined.js').createjs;
+require('../vendor/scripts/easeljs-NEXT.combined.js');
+require('../vendor/scripts/tweenjs-NEXT.combined.js');
+require('../vendor/scripts/soundjs-NEXT.combined.js');
+require('../vendor/scripts/SpriteContainer.js');
+require('../vendor/scripts/SpriteStage.js');
+require('../vendor/scripts/movieclip-NEXT.min.js');
 window.tv4 = require('tv4');
 window.lscache = require('lscache');
 window._.string = require('underscore.string');
@@ -23,9 +32,22 @@ window.key = require('../vendor/scripts/keymaster.js');
 require('../vendor/scripts/jquery.noty.packaged.min.js');
 require('bootstrap/dist/js/bootstrap');
 require('nanoscroller');
+require('../vendor/scripts/hsl-to-rgb.js');
+require('../vendor/scripts/jquery-ui-1.11.1.custom.js');
+window.SPE = require('exports?SPE!../vendor/scripts/ShaderParticles.js');
+require('imports?this=>window!../vendor/scripts/fancy_select.js');
+
+
+require.context('../vendor', true, /.*\.(js|css)/); // F'it, just import everything for now. Handle the ones that need to be set to window manually.
+
+require('treema/treema.js');
+// jasmine?
+window.THREE = require('three');
+require('npm-modernizr');
 
 require('./locale/locale.coffee');
 require('./locale/en.coffee');
+require('lib/sprites/SpriteBuilder.coffee'); // loaded by ThangType
 
 require('./core/Router.coffee');
 
