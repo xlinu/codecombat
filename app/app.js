@@ -48,6 +48,7 @@ require('npm-modernizr');
 require('./locale/locale.coffee');
 require('./locale/en.coffee');
 require('lib/sprites/SpriteBuilder.coffee'); // loaded by ThangType
+require('ace-builds/src-noconflict/ace.js');
 
 require('./core/Router.coffee');
 
