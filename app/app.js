@@ -37,7 +37,7 @@ require('../vendor/scripts/jquery-ui-1.11.1.custom.js');
 window.SPE = require('exports?SPE!../vendor/scripts/ShaderParticles.js');
 require('imports?this=>window!../vendor/scripts/fancy_select.js');
 
-
+// require('css-loader?-url!../vendor/scripts/jquery-ui-1.11.1.custom.css');
 require.context('../vendor', true, /.*\.(js|css)/); // F'it, just import everything for now. Handle the ones that need to be set to window manually.
 
 require('treema/treema.js');

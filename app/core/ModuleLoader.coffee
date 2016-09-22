@@ -1,7 +1,7 @@
 CocoClass = require 'core/CocoClass'
 locale = require 'locale/locale'
 
-LOG = false
+LOG = true
 
 
 module.exports = ModuleLoader = class ModuleLoader extends CocoClass

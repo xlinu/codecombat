@@ -9,7 +9,8 @@ module.exports = {
     'app': './app/app.js',
     // 'app/locale/en': './app/locale/en.coffee',
     // 'app/locale/en-US': './app/locale/en-US.coffee',
-    'esper': './bower_components/esper.js/esper.js', // TODO: Do this the right way
+    // 'aether': './bower_components/aether/build/aether.js', // TODO: Do this the right way
+    // 'esper': './bower_components/esper.js/esper.js', // TODO: Do this the right way
   },
   output: {
     filename: './public/javascripts/[name].js'
@@ -20,6 +21,7 @@ module.exports = {
       { test: /\.jade$/, loader: 'jade-loader', query: { root: path.resolve('./app') } },
       { test: /\.scss$/, loader: ExtractTextPlugin.extract(['css-loader', 'sass-loader'])},
       { test: /\.sass$/, loader: ExtractTextPlugin.extract(['css-loader', 'sass-loader?indentedSyntax'])},
+      { test: /\vendor\/.*.css$/, loader: ExtractTextPlugin.extract(['css-loader?-url'])},
       { test: /\.css$/, loader: ExtractTextPlugin.extract(['css-loader'])},
       { test: /\.json$/, loader: 'json-loader' },
       { test: /npm-modernizr/, loader: 'imports?this=>window!exports?window.Modernizr'}, // TODO: Decide if this goes here or in app.js
@@ -51,15 +53,20 @@ module.exports = {
     }),
     new webpack.IgnorePlugin(/^memwatch$/),
     new webpack.IgnorePlugin(/.*images.*/, /.*vendor.*/),
+    // new webpack.IgnorePlugin(/.*/, /.*aether.*/),
     new CopyWebpackPlugin([{
       from: 'app/assets',
       to: 'public',
       ignore: '*bower.json',
+    }]),
+    new CopyWebpackPlugin([{
+      from: 'bower_components/aether/build/aether.js',
+      to: 'public/javascripts/aether.js',
     }]),
     new ExtractTextPlugin('./public/stylesheets/app.css'),
   ],
   node: {
     fs: 'empty',
     child_process: 'empty',
-  }
+  },
 }
