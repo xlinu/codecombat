@@ -9,8 +9,6 @@ module.exports = {
     'app': './app/app.js',
     // 'app/locale/en': './app/locale/en.coffee',
     // 'app/locale/en-US': './app/locale/en-US.coffee',
-    // 'aether': './bower_components/aether/build/aether.js', // TODO: Do this the right way
-    // 'esper': './bower_components/esper.js/esper.js', // TODO: Do this the right way
   },
   output: {
     filename: './public/javascripts/[name].js'
@@ -52,7 +50,8 @@ module.exports = {
       }
     }),
     new webpack.IgnorePlugin(/^memwatch$/),
-    new webpack.IgnorePlugin(/.*images.*/, /.*vendor.*/),
+    new webpack.IgnorePlugin(/ace\/lib/),
+    new webpack.IgnorePlugin(/.*images.*/, /.*vendor.*/), // Not sure if this even works. Trying to fix failed url(...) loads in jQuery UI vendor CSS
     // new webpack.IgnorePlugin(/.*/, /.*aether.*/),
     new CopyWebpackPlugin([{
       from: 'app/assets',
@@ -63,7 +62,40 @@ module.exports = {
       from: 'bower_components/aether/build/aether.js',
       to: 'public/javascripts/aether.js',
     }]),
+    new CopyWebpackPlugin([{
+      from: 'bower_components/esper.js/esper.js',
+      to: 'public/javascripts/esper.js',
+    }]),
+    new CopyWebpackPlugin([{
+      from: 'node_modules/lodash/dist/lodash.js',
+      to: 'public/javascripts/lodash.js',
+    }]),
+    new CopyWebpackPlugin([{
+      from: 'node_modules/ace-builds/src-min-noconflict/',
+      to: 'public/lib/ace/',
+    }]),
     new ExtractTextPlugin('./public/stylesheets/app.css'),
+    // TODO (copied from brunch config): move this to assets/lib since we're not really joining anything here?
+    new CopyWebpackPlugin([{
+      from: 'bower_components/aether/build/coffeescript.js',
+      to: 'public/javascripts/app/vendor/aether-coffeescript.js',
+    }]),
+    new CopyWebpackPlugin([{
+      from: 'bower_components/aether/build/javascript.js',
+      to: 'public/javascripts/app/vendor/aether-javascript.js',
+    }]),
+    new CopyWebpackPlugin([{
+      from: 'bower_components/aether/build/lua.js',
+      to: 'public/javascripts/app/vendor/aether-lua.js',
+    }]),
+    new CopyWebpackPlugin([{
+      from: 'bower_components/aether/build/java.js',
+      to: 'public/javascripts/app/vendor/aether-java.js',
+    }]),
+    new CopyWebpackPlugin([{
+      from: 'bower_components/aether/build/html.js',
+      to: 'public/javascripts/app/vendor/aether-html.js',
+    }]),
   ],
   node: {
     fs: 'empty',
