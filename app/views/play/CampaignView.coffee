@@ -22,6 +22,7 @@ UserPollsRecord = require 'models/UserPollsRecord'
 Poll = require 'models/Poll'
 PollModal = require 'views/play/modal/PollModal'
 CourseInstance = require 'models/CourseInstance'
+AnnouncementModal = require 'views/play/modal/AnnouncementModal'
 codePlay = require('lib/code-play')
 
 require 'game-libraries'
@@ -182,6 +183,8 @@ module.exports = class CampaignView extends RootView
       me.level() < 5 and not (me.get('ageRange') in ['18-24', '25-34', '35-44', '45-100']) and
       not storage.load('sent-parent-email') and not me.isPremium()
         @openModalView new ShareProgressModal()
+    else
+      @maybeShowPendingAnnouncement()
 
   setCampaign: (@campaign) ->
     @render()
@@ -953,3 +956,14 @@ module.exports = class CampaignView extends RootView
             .error ->
               console.warn 'Achievement NOT complete:', achievement.name
     )
+
+  maybeShowPendingAnnouncement: () ->
+    latest = window.serverConfig.latestAnnouncement
+    myLatest = me.get('lastAnnouncementSeen')
+    console.log "LID: #{latest} vs #{myLatest}"
+    return unless typeof latest is 'number'
+    if latest > myLatest or not myLatest?
+      me.set('lastAnnouncementSeen', latest)
+      me.save()
+      console.log "Opening #{latest}"
+      @openModalView new AnnouncementModal({announcementId: latest})
