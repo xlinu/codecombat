@@ -1,0 +1,62 @@
+div.modal-body.teacher-component
+  h3.m-t-3(data-i18n="teachers_quote.create_account")
+  .container-fluid
+    .row.m-y-2
+      .col-md-offset-2.col-md-8.col-sm-12
+        .form-group
+          span.control-label
+            span(data-i18n="teachers_quote.organization_label")
+            span.spl.text-muted(data-i18n="signup.optional")
+          input.form-control#organization-control(
+            name="organization"
+            v-model="organization"
+            v-on:keyup.up="navSearchUp"
+            v-on:keyup.down="navSearchDown"
+            v-on:keyup.enter="navSearchChoose"
+            v-on:keyup.esc.stop="navSearchClear"
+          )
+          #suggestion-wrapper
+            .list-group
+              .list-group-item(
+                v-for="(suggestion, index) in suggestions"
+                v-bind:class="{ active: index === suggestionIndex }"
+                v-on:mouseover="suggestionHover(index)"
+                v-on:click="navSearchChoose"
+              )
+                .school(v-html="suggestion._highlightResult.name.value")
+                .district
+                  span(v-html="suggestion._highlightResult.district.value"),
+                  =" "
+                  span(v-if="suggestion._highlightResult.city", v-html="suggestion._highlightResult.city.value")
+                  =" "
+                  span(v-html="suggestion._highlightResult.state.value")
+  
+    .row.m-y-2
+      .col-md-offset-2.col-md-4.col-sm-6
+        .form-group
+          span.control-label(data-i18n="teachers_quote.district_label")
+          input.form-control#district-control(name="district", data-i18n="[placeholder]teachers_quote.district_na", v-model="district")
+  
+      .col-md-4.col-sm-6
+        .form-group
+          span.control-label(data-i18n="teachers_quote.city")
+          input.form-control(name="city", v-model="city")
+  
+    .row.m-y-2
+      .col-md-offset-2.col-md-4.col-sm-6
+        .form-group
+          span.control-label(data-i18n="teachers_quote.state")
+          input.form-control(name="state", v-model="state")
+  
+      .col-md-4.col-sm-6
+        .form-group
+          span.control-label(data-i18n="teachers_quote.country")
+          input.form-control(name="country", v-model="country")
+          
+  // In reverse order for tabbing purposes
+  .history-nav-buttons
+    button#create-account-btn.next-button.btn.btn-lg.btn-navy(v-on:click="clickContinue")
+      span(data-i18n="common.continue")
+
+    button.back-button.btn.btn-lg.btn-navy-alt(type='button')
+      span(data-i18n="common.back")

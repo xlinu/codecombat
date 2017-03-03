@@ -8,6 +8,7 @@ SingleSignOnAlreadyExistsView = require './SingleSignOnAlreadyExistsView'
 SingleSignOnConfirmView = require './SingleSignOnConfirmView'
 ExtrasView = require './ExtrasView'
 ConfirmationView = require './ConfirmationView'
+TeacherComponent = require './TeacherComponent'
 State = require 'models/State'
 template = require 'templates/core/create-account-modal/create-account-modal'
 forms = require 'core/forms'
@@ -56,7 +57,8 @@ module.exports = class CreateAccountModal extends ModalView
     classCode = utils.getQueryVariable('_cc', undefined)
     @signupState = new State {
       path: if classCode then 'student' else null
-      screen: if classCode then 'segment-check' else 'choose-account-type'
+      # TODO: Remove. For testing.
+      screen: 'teacher-component' #if classCode then 'segment-check' else 'choose-account-type'
       ssoUsed: null # or 'facebook', 'gplus'
       classroom: null # or Classroom instance
       facebookEnabled: application.facebookHandler.apiLoaded
@@ -78,7 +80,7 @@ module.exports = class CreateAccountModal extends ModalView
     @listenTo @insertSubView(new ChooseAccountTypeView()),
       'choose-path': (path) ->
         if path is 'teacher'
-          application.router.navigate('/teachers/signup', trigger: true)
+          @signupState.set { path, screen: 'basic-info' }
         else
           @signupState.set { path, screen: 'segment-check' }
 
@@ -93,10 +95,16 @@ module.exports = class CreateAccountModal extends ModalView
     @listenTo @insertSubView(new BasicInfoView({ @signupState })),
       'sso-connect:already-in-use': -> @signupState.set { screen: 'sso-already-exists' }
       'sso-connect:new-user': -> @signupState.set {screen: 'sso-confirm'}
-      'nav-back': -> @signupState.set { screen: 'segment-check' }
+      'nav-back': -> 
+        if @signupState.get('path') is 'teacher'
+          @signupState.set { screen: 'choose-account-type' }
+        else
+          @signupState.set { screen: 'segment-check' }
       'signup': ->
         if @signupState.get('path') is 'student'
           @signupState.set { screen: 'extras', accountCreated: true }
+        else if @signupState.get('path') is 'teacher'
+          @signupState.set { screen: 'teacher-component' }
         else
           @signupState.set { screen: 'confirmation', accountCreated: true }
 
@@ -128,6 +136,16 @@ module.exports = class CreateAccountModal extends ModalView
         else if me.isTeacher()
           application.router.navigate('/teachers/classes', {trigger: true})
         window.location.reload()
+        
+  afterRender: ->
+    target = @$el.find('#teacher-component')
+    if @teacherComponent
+      target.replaceWith(@teacherComponent.$el)
+    else
+      @teacherComponent = new TeacherComponent({ el: target[0] })
+      
+  destroy: ->
+    @teacherComponent.$destroy()
   
   onClickLoginLink: ->
     @openModalView(new AuthModal({ initialValues: @signupState.get('authModalInitialValues') }))
