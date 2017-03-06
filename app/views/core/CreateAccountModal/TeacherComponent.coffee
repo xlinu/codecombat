@@ -74,18 +74,46 @@ TeacherRolePanel = Vue.extend
         this.showRequired = true
         return
       @$emit('continue')
-      
+
+
+DemographicsPanel = Vue.extend
+  name: 'demographics-panel'
+  template: require('templates/core/create-account-modal/demographics-panel')()
+  data: -> {
+    numStudents: ''
+    numStudentsTotal: ''
+    notes: ''
+    referrer: ''
+    educationLevel: []
+    otherEducationLevel: false
+    otherEducationLevelExplanation: ''
+    showRequired: false
+  }
+  computed:
+    educationLevelComplete: ->
+      if @otherEducationLevel and not @otherEducationLevelExplanation
+        return false
+      return @educationLevel.length or @otherEducationLevel
+    
+  methods:
+    clickContinue: ->
+      unless _.all(_.pick(@, 'numStudents', 'numStudentsTotal', 'educationLevelComplete'))
+        this.showRequired = true
+        return
+      @$emit('continue')
+
       
 module.exports = Vue.extend
   name: 'teacher-component'
   template: require('templates/core/create-account-modal/teacher-component')()
   
   data: ->
-    panel: 'teacher-role-panel'
-  
+    panel: 'demographic-panel'
+
   components:
     'school-info-panel': SchoolInfoPanel
     'teacher-role-panel': TeacherRolePanel
+    'demographic-panel': DemographicsPanel
 
   methods:
     onContinue: ->
