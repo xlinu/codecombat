@@ -16,6 +16,7 @@ User = require 'models/User'
 application  = require 'core/application'
 errors = require 'core/errors'
 utils = require 'core/utils'
+store = require('core/store')
 
 ###
 CreateAccountModal is a wizard-style modal with several subviews, one for each
@@ -57,8 +58,8 @@ module.exports = class CreateAccountModal extends ModalView
     classCode = utils.getQueryVariable('_cc', undefined)
     @signupState = new State {
       path: if classCode then 'student' else null
-      # TODO: Remove. For testing.
-      screen: 'teacher-component' #if classCode then 'segment-check' else 'choose-account-type'
+      screen: 'teacher-component' # TODO: Remove. For testing.
+#      screen: if classCode then 'segment-check' else 'choose-account-type'
       ssoUsed: null # or 'facebook', 'gplus'
       classroom: null # or Classroom instance
       facebookEnabled: application.facebookHandler.apiLoaded
@@ -104,6 +105,8 @@ module.exports = class CreateAccountModal extends ModalView
         if @signupState.get('path') is 'student'
           @signupState.set { screen: 'extras', accountCreated: true }
         else if @signupState.get('path') is 'teacher'
+          store.commit('modal/updateSso', _.pick(@signupState.attributes, 'ssoUsed', 'ssoAttrs'))
+          store.commit('modal/updateSignupForm', @signupState.get('signupForm'))
           @signupState.set { screen: 'teacher-component' }
         else
           @signupState.set { screen: 'confirmation', accountCreated: true }
@@ -116,6 +119,10 @@ module.exports = class CreateAccountModal extends ModalView
       'signup': ->
         if @signupState.get('path') is 'student'
           @signupState.set { screen: 'extras', accountCreated: true }
+        else if @signupState.get('path') is 'teacher'
+          store.commit('modal/updateSso', _.pick(@signupState.attributes, 'ssoUsed', 'ssoAttrs'))
+          store.commit('modal/updateSignupForm', @signupState.get('signupForm'))
+          @signupState.set { screen: 'teacher-component' }
         else
           @signupState.set { screen: 'confirmation', accountCreated: true }
         
@@ -138,14 +145,24 @@ module.exports = class CreateAccountModal extends ModalView
         window.location.reload()
         
   afterRender: ->
+    store.registerModule('modal', TeacherComponent.storeModule)
     target = @$el.find('#teacher-component')
+    return unless target[0]
     if @teacherComponent
       target.replaceWith(@teacherComponent.$el)
     else
-      @teacherComponent = new TeacherComponent({ el: target[0] })
+      @teacherComponent = new TeacherComponent({
+        el: target[0]
+        data: {panelIndex: 0} # For testing
+        store
+      })
+      @teacherComponent.$on 'back', =>
+        @signupState.set('screen', 'basic-info')
       
   destroy: ->
-    @teacherComponent.$destroy()
+    if @teacherComponent
+      @teacherComponent.$destroy()
+    store.unregisterModule('modal')
   
   onClickLoginLink: ->
     @openModalView(new AuthModal({ initialValues: @signupState.get('authModalInitialValues') }))

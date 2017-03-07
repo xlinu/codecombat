@@ -14,6 +14,7 @@ div.school-info-panel
             v-on:keyup.down="navSearchDown"
             v-on:keyup.enter="navSearchChoose"
             v-on:keyup.esc.stop="navSearchClear"
+            ref='focus'
           )
           #suggestion-wrapper
             .list-group
@@ -68,4 +69,4 @@ div.school-info-panel
   // In reverse order for tabbing purposes
   .history-nav-buttons
     button#create-account-btn.next-button.btn.btn-lg.btn-navy(v-on:click="clickContinue") {{ $t("common.continue") }}
-    button.back-button.btn.btn-lg.btn-navy-alt(type='button') {{ $t("common.back") }}
+    button.back-button.btn.btn-lg.btn-navy-alt(type='button', v-on:click="clickBack") {{ $t("common.back") }}

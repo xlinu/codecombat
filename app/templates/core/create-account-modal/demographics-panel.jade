@@ -5,7 +5,7 @@
         span.control-label {{ $t("courses.number_programming_students") }}
         .help-block.small
           em.text-info {{ $t("teachers_quote.num_students_help") }}
-        select.form-control(v-model="numStudents")
+        select.form-control(v-model="numStudents", ref='focus')
           option(value='') {{ $t("teachers_quote.num_students_default") }}
           option 1-10
           option 11-50
@@ -73,4 +73,4 @@
   // In reverse order for tabbing purposes
   .history-nav-buttons
     button.next-button.btn.btn-lg.btn-navy(v-on:click="clickContinue") {{ $t("common.continue") }}
-    button.back-button.btn.btn-lg.btn-navy-alt(type='button') {{ $t("common.back") }}
+    button.back-button.btn.btn-lg.btn-navy-alt(type='button', v-on:click="clickBack") {{ $t("common.back") }}
