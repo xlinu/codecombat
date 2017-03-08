@@ -24,7 +24,7 @@ module.exports = class TeacherClassesView extends RootView
     'click .archive-classroom': 'onClickArchiveClassroom'
     'click .unarchive-classroom': 'onClickUnarchiveClassroom'
     'click .add-students-btn': 'onClickAddStudentsButton'
-    'click .create-classroom-btn': 'onClickCreateClassroomButton'
+    'click .create-classroom-btn': 'openNewClassroomModal'
     'click .create-teacher-btn': 'onClickCreateTeacherButton'
     'click .update-teacher-btn': 'onClickUpdateTeacherButton'
     'click .view-class-btn': 'onClickViewClassButton'
@@ -67,6 +67,8 @@ module.exports = class TeacherClassesView extends RootView
 
   onLoaded: ->
     helper.calculateDots(@classrooms, @courses, @courseInstances)
+    if me.isTeacher() and not @classrooms.length
+      @openNewClassroomModal()
     super()
 
   onClickEditClassroom: (e) ->
@@ -77,7 +79,7 @@ module.exports = class TeacherClassesView extends RootView
     @openModalView(modal)
     @listenToOnce modal, 'hide', @render
 
-  onClickCreateClassroomButton: (e) ->
+  openNewClassroomModal: ->
     window.tracker?.trackEvent 'Teachers Classes Create New Class Started', category: 'Teachers', ['Mixpanel']
     classroom = new Classroom({ ownerID: me.id })
     modal = new ClassroomSettingsModal({ classroom: classroom })
