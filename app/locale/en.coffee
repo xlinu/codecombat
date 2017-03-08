@@ -288,6 +288,7 @@
     sso_connected: "Successfully connected with:"
     select_your_starting_hero: "Select Your Starting Hero:"
     you_can_always_change_your_hero_later: "You can always change your hero later."
+    finish: "Finish"
 
   recover:
     recover_account_title: "Recover Account"
@@ -2118,3 +2119,7 @@
     october: "October"
     november: "November"
     december: "December"
+    
+  server_error:
+    email_taken: 'Email already taken'
+    username_taken: 'Username already taken'

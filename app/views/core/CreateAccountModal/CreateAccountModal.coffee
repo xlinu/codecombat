@@ -58,8 +58,8 @@ module.exports = class CreateAccountModal extends ModalView
     classCode = utils.getQueryVariable('_cc', undefined)
     @signupState = new State {
       path: if classCode then 'student' else null
-      screen: 'teacher-component' # TODO: Remove. For testing.
-#      screen: if classCode then 'segment-check' else 'choose-account-type'
+#      screen: 'teacher-component' # TODO: Remove. For testing.
+      screen: if classCode then 'segment-check' else 'choose-account-type'
       ssoUsed: null # or 'facebook', 'gplus'
       classroom: null # or Classroom instance
       facebookEnabled: application.facebookHandler.apiLoaded
@@ -143,9 +143,10 @@ module.exports = class CreateAccountModal extends ModalView
         else if me.isTeacher()
           application.router.navigate('/teachers/classes', {trigger: true})
         window.location.reload()
-        
-  afterRender: ->
+
     store.registerModule('modal', TeacherComponent.storeModule)
+
+  afterRender: ->
     target = @$el.find('#teacher-component')
     return unless target[0]
     if @teacherComponent
@@ -153,7 +154,7 @@ module.exports = class CreateAccountModal extends ModalView
     else
       @teacherComponent = new TeacherComponent({
         el: target[0]
-        data: {panelIndex: 0} # For testing
+        data: {panelIndex: 0} # For testing. TODO: Remove
         store
       })
       @teacherComponent.$on 'back', =>
