@@ -1,7 +1,7 @@
 div.school-info-panel
   .container-fluid.text-left
     .row.m-y-2
-      .col-md-offset-2.col-md-8.col-sm-12
+      .col-xs-offset-2.col-xs-8
         .form-group(v-bind:class="{ 'has-error': showRequired && !organization }")
           span.control-label
             | {{ $t("teachers_quote.organization_label") }}
@@ -33,7 +33,7 @@ div.school-info-panel
                   span(v-html="suggestion._highlightResult.state.value")
                   
     .row.m-y-2
-      .col-md-offset-2.col-md-4.col-sm-6
+      .col-xs-offset-2.col-xs-4
         .form-group(v-bind:class="{ 'has-error': showRequired && !district }")
           span.control-label
             | {{ $t("teachers_quote.district_label") }}
@@ -41,7 +41,7 @@ div.school-info-panel
             strong(v-if="showRequired && !district") {{ $t("common.required_field") }}
           input.form-control#district-control(name="district", v-model="district", v-bind:placeholder="$t('teachers_quote.district_na')")
 
-      .col-md-4.col-sm-6
+      .col-xs-4
         .form-group(v-bind:class="{ 'has-error': showRequired && !city }")
           span.control-label
             | {{ $t("teachers_quote.city") }}
@@ -50,7 +50,7 @@ div.school-info-panel
           input.form-control(name="city", v-model="city")
 
     .row.m-y-2
-      .col-md-offset-2.col-md-4.col-sm-6
+      .col-xs-offset-2.col-xs-4
         .form-group(v-bind:class="{ 'has-error': showRequired && !state }")
           span.control-label
             | {{ $t("teachers_quote.state") }}
@@ -58,7 +58,7 @@ div.school-info-panel
             strong(v-if="showRequired && !state") {{ $t("common.required_field") }}
           input.form-control(name="state", v-model="state")
 
-      .col-md-4.col-sm-6
+      .col-xs-4
         .form-group(v-bind:class="{ 'has-error': showRequired && !country }")
           span.control-label
             | {{ $t("teachers_quote.country") }}

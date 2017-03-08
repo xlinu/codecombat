@@ -1,6 +1,6 @@
 div.school-info-panel.text-left
   .row
-    .col-md-offset-3.col-md-6.col-sm-offset-2.col-sm-8
+    .col-xs-offset-3.col-xs-6
       .form-group(v-bind:class="{ 'has-error': showRequired && (!phoneNumber || !validPhoneNumber) }")
         span.control-label 
           | {{ $t("teachers_quote.phone_number") }}
@@ -14,7 +14,7 @@ div.school-info-panel.text-left
         )
       
   .row
-    .col-md-offset-3.col-md-6.col-sm-offset-2.col-sm-8
+    .col-xs-offset-3.col-xs-6
       .form-group(v-bind:class="{ 'has-error': showRequired && !role }")
         span.control-label 
           | {{ $t("teachers_quote.primary_role_label") }}
@@ -30,7 +30,7 @@ div.school-info-panel.text-left
           option(value="Parent") {{ $t("teachers_quote.parent") }}
   
   .row
-    .col-md-offset-3.col-md-6.col-sm-offset-2.col-sm-8
+    .col-xs-offset-3.col-xs-6
       .form-group(v-bind:class="{ 'has-error': showRequired && !purchaserRole }")
         span.control-label 
           | {{ $t("teachers_quote.purchaser_role_label") }}
