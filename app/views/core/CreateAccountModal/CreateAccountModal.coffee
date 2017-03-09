@@ -68,6 +68,9 @@ module.exports = class CreateAccountModal extends ModalView
       birthday: new Date('') # so that birthday.getTime() is NaN
       authModalInitialValues: {}
       accountCreated: false
+      signupForm: {
+        subscribe: ['on'] # checked by default
+      }
     }
     
     { startOnPath } = options

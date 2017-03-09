@@ -209,7 +209,7 @@ module.exports = class BasicInfoView extends CocoView
       # Don't sign up, kick to TeacherComponent instead
       if @signupState.get('path') is 'teacher'
         @signupState.set({
-          signupForm: _.pick(forms.formToObject(@$el), 'name', 'email', 'password') 
+          signupForm: _.pick(forms.formToObject(@$el), 'firstName', 'lastName', 'email', 'name', 'password', 'subscribe')
         })
         @trigger 'signup'
         return
