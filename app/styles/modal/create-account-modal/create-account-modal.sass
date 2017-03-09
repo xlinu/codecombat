@@ -98,8 +98,9 @@
       // Undo .style-flat's .btn + .btn margin
       margin: 0
     
-    &.just-one
-      flex-direction: row
+    // Left-align when there's only a back button
+    .back-button:first-child:last-child
+      margin-right: auto
 
   // Forms
 
