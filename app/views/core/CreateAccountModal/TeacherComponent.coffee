@@ -187,6 +187,14 @@ module.exports = Vue.extend
     onBack: ->
       if @panelIndex is 0 then @$emit('back') else @panelIndex -= 1
 
+    disableKeyboardClose: ->
+      # NOTE: This uses undocumented API calls and might break in future bootstrap releases
+      modal = $('#create-account-modal').data('bs.modal')
+      modal?.options?.keyboard = false
+      modal?.escape?()
+
+  created: ->
+    @disableKeyboardClose()
 
 ncesData = _.zipObject(['nces_'+key, ''] for key in SCHOOL_NCES_KEYS)
 module.exports.storeModule = {
