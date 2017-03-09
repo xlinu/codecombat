@@ -27,17 +27,17 @@ SchoolInfoPanel = Vue.extend
     
   methods:
     searchNces: (term) ->
-      this.suggestions = []
-      this.filledSuggestion = ''
+      @suggestions = []
+      @filledSuggestion = ''
       algolia.schoolsIndex.search(term, { hitsPerPage: 5, aroundLatLngViaIP: false })
       .then ({hits}) =>
-        return unless this.organization is term
-        this.suggestions = hits
-        this.suggestionIndex = 0
-    navSearchUp: -> this.suggestionIndex = Math.max(0, this.suggestionIndex - 1)
-    navSearchDown: -> this.suggestionIndex = Math.min(this.suggestions.length, this.suggestionIndex + 1)
+        return unless @organization is term
+        @suggestions = hits
+        @suggestionIndex = 0
+    navSearchUp: -> @suggestionIndex = Math.max(0, @suggestionIndex - 1)
+    navSearchDown: -> @suggestionIndex = Math.min(@suggestions.length, @suggestionIndex + 1)
     navSearchChoose: ->
-      suggestion = this.suggestions[this.suggestionIndex]
+      suggestion = @suggestions[@suggestionIndex]
       return unless suggestion
       _.assign(@, _.pick(suggestion, 'district', 'city', 'state', 'organization'))
       @filledSuggestion = @organization = suggestion.name
@@ -46,12 +46,12 @@ SchoolInfoPanel = Vue.extend
         @['nces_'+key] = suggestion[key]
       @suggestions = []
 
-    navSearchClear: -> this.suggestions = []
-    suggestionHover: (index) -> this.suggestionIndex = index
+    navSearchClear: -> @suggestions = []
+    suggestionHover: (index) -> @suggestionIndex = index
     clickContinue: ->
       attrs = _.pick(@, 'organization', 'district', 'city', 'state', 'country')
       unless _.all(attrs)
-        this.showRequired = true
+        @showRequired = true
         return
       if @filledSuggestion
         for key in SCHOOL_NCES_KEYS
@@ -84,13 +84,13 @@ TeacherRolePanel = Vue.extend
     })
   computed: {
     validPhoneNumber: ->
-      return forms.validatePhoneNumber(this.phoneNumber)
+      return forms.validatePhoneNumber(@phoneNumber)
   }
   methods:
     clickContinue: ->
       attrs = _.pick(@, 'phoneNumber', 'role', 'purchaserRole')
       unless _.all(attrs)
-        this.showRequired = true
+        @showRequired = true
         return
       @$store.commit('modal/updateTrialRequestProperties', attrs)
       @$emit('continue')
@@ -125,7 +125,7 @@ DemographicsPanel = Vue.extend
     clickContinue: ->
       attrs = _.pick(@, 'numStudents', 'numStudentsTotal', 'educationLevelComplete')
       unless _.all(attrs)
-        this.showRequired = true
+        @showRequired = true
         return
       attrs = _.pick(@, 'numStudents', 'numStudentsTotal', 'notes', 'referrer', 'educationLevel', 'otherEducationLevel', 'otherEducationLevelExplanation')
       @$store.commit('modal/updateTrialRequestProperties', attrs)
@@ -148,13 +148,13 @@ SetupAccountPanel = Vue.extend
     @$store.dispatch('modal/createAccount')
     .catch (e) =>
       if e.i18n
-        this.error = @$t(e.i18n)
+        @error = @$t(e.i18n)
       else
-        this.error = e.message
-      if not this.error
-        this.error = @$t('loading_error.unknown')
+        @error = e.message
+      if not @error
+        @error = @$t('loading_error.unknown')
     .then =>
-      this.saving = false
+      @saving = false
   methods:
     clickFinish: ->
       application.router.navigate('teachers/classes', {trigger: true})
@@ -247,7 +247,7 @@ module.exports.storeModule = {
         return dispatch('me/save', {
           role: state.trialRequestProperties.role.toLowerCase()
         }, {
-          root: true 
+          root: true
         })
 
       .then =>
