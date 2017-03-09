@@ -1,4 +1,5 @@
 form#basic-info-form.modal-body.basic-info
+  - var path = view.signupState.get('path')
   .modal-body-content
     .auth-network-logins.text-center
       h4
@@ -19,16 +20,22 @@ form#basic-info-form.modal-body.basic-info
     div.form-container
       if ['student', 'teacher'].indexOf(view.signupState.get('path')) !== -1
         .row.full-name
-          .col-xs-offset-3.col-xs-5
+          .col-xs-offset-3(class=(path === 'teacher' ? 'col-xs-3' : 'col-xs-5'))
             .form-group
               label.control-label(for="first-name-input")
                 span(data-i18n="general.first_name")
               input#first-name-input.form-control.input-lg(name="firstName")
-          .col-xs-4
-            .last-initial.form-group
-              label.control-label(for="last-name-input")
-                span(data-i18n="general.last_initial")
-              input#last-name-input.form-control.input-lg(name="lastName" maxlength="1")
+          div(class=(path === 'teacher' ? 'col-xs-3' : 'col-xs-4'))
+            if view.signupState.get('path') === 'teacher'
+              .last-name.form-group
+                label.control-label(for="last-name-input")
+                  span(data-i18n="general.last_name")
+                input#last-name-input.form-control.input-lg(name="lastName")
+            else
+              .last-initial.form-group
+                label.control-label(for="last-name-input")
+                  span(data-i18n="general.last_initial")
+                input#last-name-input.form-control.input-lg(name="lastName" maxlength="1")
       .form-group
         .row
           .col-xs-5.col-xs-offset-3
