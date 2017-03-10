@@ -56,7 +56,6 @@ module.exports = class HomeView extends RootView
     @trialRequest = @trialRequests.first() if @trialRequests?.size()
     @isTeacherWithDemo = @trialRequest and @trialRequest.get('status') in ['approved', 'submitted']
     super()
-    @$('#create-account-link').click() # TODO: Remove. For testing.
 
   onClickLearnMoreLink: ->
     window.tracker?.trackEvent 'Homepage Click Learn More', category: 'Homepage', []

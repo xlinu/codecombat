@@ -59,8 +59,7 @@ module.exports = class CreateAccountModal extends ModalView
     classCode = utils.getQueryVariable('_cc', undefined)
     @signupState = new State {
       path: if classCode then 'student' else null
-      screen: 'teacher-component' # TODO: Remove. For testing.
-#      screen: if classCode then 'segment-check' else 'choose-account-type'
+      screen: if classCode then 'segment-check' else 'choose-account-type'
       ssoUsed: null # or 'facebook', 'gplus'
       classroom: null # or Classroom instance
       facebookEnabled: application.facebookHandler.apiLoaded
@@ -158,7 +157,6 @@ module.exports = class CreateAccountModal extends ModalView
     else
       @teacherSignupComponent = new TeacherSignupComponent({
         el: target[0]
-        data: {panelIndex: 2} # For testing. TODO: Remove
         store
       })
       @teacherSignupComponent.$on 'back', =>
