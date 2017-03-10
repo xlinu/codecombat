@@ -211,4 +211,3 @@ module.exports = class HomeView extends RootView
 
   mergeWithPrerendered: (el) ->
     true
-

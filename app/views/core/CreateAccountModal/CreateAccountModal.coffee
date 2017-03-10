@@ -8,7 +8,8 @@ SingleSignOnAlreadyExistsView = require './SingleSignOnAlreadyExistsView'
 SingleSignOnConfirmView = require './SingleSignOnConfirmView'
 ExtrasView = require './ExtrasView'
 ConfirmationView = require './ConfirmationView'
-TeacherComponent = require './TeacherComponent'
+TeacherSignupComponent = require './teacher/TeacherSignupComponent'
+TeacherSignupStoreModule = require './teacher/TeacherSignupStoreModule'
 State = require 'models/State'
 template = require 'templates/core/create-account-modal/create-account-modal'
 forms = require 'core/forms'
@@ -99,7 +100,7 @@ module.exports = class CreateAccountModal extends ModalView
     @listenTo @insertSubView(new BasicInfoView({ @signupState })),
       'sso-connect:already-in-use': -> @signupState.set { screen: 'sso-already-exists' }
       'sso-connect:new-user': -> @signupState.set {screen: 'sso-confirm'}
-      'nav-back': -> 
+      'nav-back': ->
         if @signupState.get('path') is 'teacher'
           @signupState.set { screen: 'choose-account-type' }
         else
@@ -146,26 +147,26 @@ module.exports = class CreateAccountModal extends ModalView
         else if me.isTeacher()
           application.router.navigate('/teachers/classes', {trigger: true})
         window.location.reload()
-
-    store.registerModule('modal', TeacherComponent.storeModule)
+    
+    store.registerModule('modal', TeacherSignupStoreModule)
 
   afterRender: ->
     target = @$el.find('#teacher-component')
     return unless target[0]
-    if @teacherComponent
-      target.replaceWith(@teacherComponent.$el)
+    if @teacherSignupComponent
+      target.replaceWith(@teacherSignupComponent.$el)
     else
-      @teacherComponent = new TeacherComponent({
+      @teacherSignupComponent = new TeacherSignupComponent({
         el: target[0]
         data: {panelIndex: 2} # For testing. TODO: Remove
         store
       })
-      @teacherComponent.$on 'back', =>
+      @teacherSignupComponent.$on 'back', =>
         @signupState.set('screen', 'basic-info')
       
   destroy: ->
-    if @teacherComponent
-      @teacherComponent.$destroy()
+    if @teacherSignupComponent
+      @teacherSignupComponent.$destroy()
     store.unregisterModule('modal')
   
   onClickLoginLink: ->
