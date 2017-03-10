@@ -14,9 +14,11 @@ div.school-info-panel
             v-on:keyup.down="navSearchDown"
             v-on:keyup.enter="navSearchChoose"
             v-on:keyup.esc.stop="navSearchClear"
+            v-on:blur="navSearchClear"
+            v-on:input="searchNcesSchools"
             ref='focus'
           )
-          #suggestion-wrapper
+          #suggestion-wrapper(v-if="suggestingFor === 'school'")
             .list-group
               .list-group-item(
                 v-for="(suggestion, index) in suggestions"
@@ -39,7 +41,34 @@ div.school-info-panel
             | {{ $t("teachers_quote.district_label") }}
             =" "
             strong(v-if="showRequired && !district") {{ $t("common.required_field") }}
-          input.form-control#district-control(name="district", v-model="district", v-bind:placeholder="$t('teachers_quote.district_na')")
+          input.form-control#district-control(
+            name="district"
+            v-model="district"
+            v-bind:placeholder="$t('teachers_quote.district_na')"
+            v-on:keyup.up="navSearchUp"
+            v-on:keyup.down="navSearchDown"
+            v-on:keyup.enter="navSearchChoose"
+            v-on:keyup.tab.prevent="navSearchChoose"
+            v-on:keyup.esc.stop="navSearchClear"
+            v-on:blur="navSearchClear"
+            v-on:input="searchNcesDistricts"
+          )
+          
+          #suggestion-wrapper(v-if="suggestingFor === 'district'")
+            .list-group
+              .list-group-item(
+                v-for="(suggestion, index) in suggestions"
+                v-bind:class="{ active: index === suggestionIndex }"
+                v-on:mouseover="suggestionHover(index)"
+                v-on:click="navSearchChoose"
+              )
+                .district
+                  span(v-html="suggestion._highlightResult.district.value"),
+                  =" "
+                  span(v-if="suggestion._highlightResult.city", v-html="suggestion._highlightResult.city.value")
+                  =" "
+                  span(v-html="suggestion._highlightResult.state.value")
+          
 
       .col-xs-4
         .form-group(v-bind:class="{ 'has-error': showRequired && !city }")

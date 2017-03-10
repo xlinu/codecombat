@@ -1,6 +1,7 @@
 algolia = require 'core/services/algolia'
-DISTRICT_NCES_KEYS = ['district', 'district_id', 'district_schools', 'district_students', 'phone']
-SCHOOL_NCES_KEYS = DISTRICT_NCES_KEYS.concat(['id', 'name', 'students'])
+DISTRICT_NCES_KEYS = ['district', 'district_id', 'district_schools', 'district_students']
+SCHOOL_NCES_KEYS = DISTRICT_NCES_KEYS.concat(['id', 'name', 'students', 'phone'])
+# NOTE: Phone number in algolia search results is for a school, not a district
 
 SchoolInfoPanel = Vue.extend
   name: 'school-info-panel'
@@ -22,15 +23,28 @@ SchoolInfoPanel = Vue.extend
       suggestionIndex: 0
       filledSuggestion: ''
       showRequired: false
+      suggestingFor: 'school'
     })
     
   methods:
-    searchNces: (term) ->
+    searchNcesSchools: (e) ->
+      term = $(e.currentTarget).val()
       @suggestions = []
-      @filledSuggestion = ''
+      @suggestingFor = 'school'
+      @filledSchoolSuggestion = ''
       algolia.schoolsIndex.search(term, { hitsPerPage: 5, aroundLatLngViaIP: false })
       .then ({hits}) =>
         return unless @organization is term
+        @suggestions = hits
+        @suggestionIndex = 0
+    searchNcesDistricts: (e) ->
+      term = $(e.currentTarget).val()
+      @suggestions = []
+      @suggestingFor = 'district'
+      @filledDistrictSuggestion = ''
+      algolia.schoolsIndex.search(term, { hitsPerPage: 5, aroundLatLngViaIP: false })
+      .then ({hits}) =>
+        return unless @district is term
         @suggestions = hits
         @suggestionIndex = 0
     navSearchUp: -> @suggestionIndex = Math.max(0, @suggestionIndex - 1)
@@ -38,10 +52,17 @@ SchoolInfoPanel = Vue.extend
     navSearchChoose: ->
       suggestion = @suggestions[@suggestionIndex]
       return unless suggestion
-      _.assign(@, _.pick(suggestion, 'district', 'city', 'state', 'organization'))
-      @filledSuggestion = @organization = suggestion.name
+      _.assign(@, _.pick(suggestion, 'district', 'city', 'state'))
+      if @suggestingFor is 'school'
+        @organization = suggestion.name
+      else
+        @district = suggestion.district
+      @filledSuggestion = true
       @country = 'USA'
-      for key in SCHOOL_NCES_KEYS
+      NCES_KEYS = if @suggestingFor is 'school' then SCHOOL_NCES_KEYS else DISTRICT_NCES_KEYS
+      for key in _.difference(SCHOOL_NCES_KEYS, NCES_KEYS)
+        @['nces_'+key] = undefined
+      for key in NCES_KEYS
         @['nces_'+key] = suggestion[key]
       @suggestions = []
 
@@ -55,15 +76,16 @@ SchoolInfoPanel = Vue.extend
       if @filledSuggestion
         for key in SCHOOL_NCES_KEYS
           ncesKey = 'nces_'+key
-          attrs[ncesKey] = @[ncesKey]
+          attrs[ncesKey] = @[ncesKey] if @[ncesKey]
       @$store.commit('modal/updateTrialRequestProperties', attrs)
       @$emit('continue')
     clickBack: -> @$emit('back')
+
+    setSearchBySchool: ->
+      @suggestingFor = 'school'
       
-  watch:
-    organization: (newOrganization) ->
-      return if @filledSuggestion is newOrganization
-      @searchNces(newOrganization)
+    setSearchByDistrict: ->
+      @suggestingFor = 'district'
       
   mounted: ->
     @$refs.focus.focus()
