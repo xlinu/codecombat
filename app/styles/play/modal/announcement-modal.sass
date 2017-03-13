@@ -2,7 +2,6 @@
 @import "app/styles/bootstrap/variables"
 
 #announcement-modal
-
   //- Clear modal defaults
   .modal-dialog
     margin: 60px auto 0 auto
@@ -11,12 +10,16 @@
     height: 520px
     background: none
 
+  .modal-content
+    box-shadow: none
+    height: 520px
 
   //- Background
   #subscribe-background
     position: absolute
     top: -61px
     left: 0px
+
 
   //- Header
   h1
@@ -57,42 +60,74 @@
     right: 65px
     
   //- Paper area
-  
+  .sub
+    position: absolute
+    right: -20px
+    bottom: -32px
+    z-index: 1
+    width: 256px
+
+    button
+      width: 256px
+  .shimmy
+    animation: shimmy-and-shake 0.25s 2 alternate
+  @keyframes shimmy-and-shake
+    0%
+      transform: rotate(0deg)
+    25%
+      transform: rotate(-2deg)
+    50%
+      transform: rotate(0deg)
+    75%
+      transform: rotate(2deg)
+    100%
+      transform: rotate(0deg)
+  .excitable:hover
+    animation: excitable-anim 1s infinite alternate
+
+    @keyframes excitable-anim
+      from
+        transform: scale(1) rotate(-5deg)
+      to
+        transform: scale(1.1) rotate(5deg) translateY(-16px)
+        filter: drop-shadow(4px 8px 0px black)
+  #item-tooltip
+    border-style: solid
+    border-image: url(/images/level/popover_border_background.png) 16 12 fill stretch
+    border-width: 16px 12px
+    z-index: 2
+
   .paper-area
     position: absolute
-    top: 114px
-    left: 31px
-    min-height: 370px
-    width: 684px
-    background: #d4c9b1
-    border: 3px solid black
-    
-    div.img
-      top: 0px
-      bottom: 0
-      left: 0px
-      right: 0px
+    top: 97px
+    left: 27px
+    height: 410px
+    width: 691px
+    clip-path: url(#clipper)
+
+    .full-width-image
+      width: 100%
+      height: 100%
+      top: 0%
+      left: 0%
+      pointer-events: none
+    img
       position: absolute
-      overflow: hidden
-      img
-        width: 100%
-        height: 100%      
     .row
       margin-bottom: 17px
-    .sub
-      position: absolute
-      right: 20px
-      bottom: -20px
-      z-index: 1
+
     .nfo
       position: absolute
-      right: 20px
-      top: 20px
-      width: 400px
+      right: 10px
+      top: 10px
+      width: 350px
       z-index: 1
-      background-color: rgba(255,255,255,0.75)
-      border: 1px solid white
-      padding: 10px
+      background-color: rgba(0,0,0,0.75)
+      border: 1px solid black
+      border-radius: 8px
+      padding: 8px
+      color: white
+      font-size: large
 
 
   //- Feature comparison table
@@ -188,7 +223,7 @@
     display: flex
 
     > button
-      height: 70px
+      height: 100px
       margin: 0 5px
 
   //- Purchase button

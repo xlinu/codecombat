@@ -968,4 +968,4 @@ module.exports = class CampaignView extends RootView
       me.set('lastAnnouncementSeen', latest)
       me.save()
       console.log "Opening #{latest}"
-      @openModalView new AnnouncementModal({announcementId: latest})
+    @openModalView new AnnouncementModal({announcementId: latest})
